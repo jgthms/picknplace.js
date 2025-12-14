@@ -121,24 +121,38 @@ em {
 header,
 footer {
   gap: 1em;
-  height: 86vh;
+  min-height: 86vh;
+  padding: 6em 0;
 }
 
 footer {
-  p:last-child {
+  gap: 3em;
+
+  p:not(:first-child) {
     color: #666;
+    margin-top: 0.25em;
   }
 }
 
 a,
-button,
-kbd {
+button {
   color: inherit;
   cursor: pointer;
   text-decoration: none;
+}
+
+button:hover {
+  text-decoration: underline;
+}
+
+a {
+  border-bottom: 2px solid var(--yellow);
+  color: #111;
+  transition-duration: 200ms;
+  transition-property: background-color;
 
   &:hover {
-    text-decoration: underline;
+    background-color: var(--yellow);
   }
 }
 
@@ -160,6 +174,7 @@ kbd {
   background-color: rgba(0, 0, 0, 0.1);
   color: #333;
   display: inline-flex;
+  font-family: inherit;
   padding: 0.125em 0.5em;
   border-radius: 0.5em;
 }
@@ -186,9 +201,9 @@ button {
 main {
   align-items: stretch;
   flex-grow: 1;
-  max-width: 20em;
+  max-width: 21em;
   width: 100%;
-  gap: 3em;
+  gap: 0;
 }
 
 h1 {

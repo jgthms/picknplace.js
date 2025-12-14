@@ -24,8 +24,14 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="picknplace.js" />
-    <meta name="twitter:description" content="A proof of concept of a viable drag and drop alternative" />
-    <meta name="twitter:image" content="https://jgthms.com/picknplace.js/images/twitter.png" />
+    <meta
+      name="twitter:description"
+      content="A proof of concept of a viable drag and drop alternative"
+    />
+    <meta
+      name="twitter:image"
+      content="https://jgthms.com/picknplace.js/images/twitter.png"
+    />
     <meta name="twitter:image:alt" content="picknplace.js logo" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,7 +42,7 @@
     />
     <link href="index.css" rel="stylesheet" />
 
-    <title>picknplace.js</title>
+    <title>picknplace.js, an alternative to drag and drop</title>
     <script defer src="index.js" type="module"></script>
   </head>
   <body>
@@ -149,19 +155,48 @@
         <div>
           <p>Why?</p>
           <p>
-            I find that the drag and drop experience can quickly become a nightmare, especially on mobile.
-            <br>To tap, hold, drag, and scroll, all at the same time, is both difficult to achieve, and prone to errors.
-            <br>I've always had in mind this 2-step approach,
-            where picking an element and placing it were two separate steps.
-            <br>So I implemented this basic version to showcase my idea.
+            I find that the drag and drop experience can quickly become a
+            nightmare, especially on mobile.
+          </p>
+          <p>
+            Trying to tap, hold, drag, and scroll, all at the same time, is
+            awkward, slow, and error-prone.
+          </p>
+          <p>
+            I've long had in mind a simpler 2-step approach: picking an item
+            first, then placing it.
+          </p>
+          <p>
+            So I implemented this basic version to showcase my idea.
+          </p>
+        </div>
+
+        <div>
+          <p>How does this work?</p>
+          <p>
+            When picking an item, a duplicate of the list is created on top of
+            the original one.
+          </p>
+          <p>
+            The duplicate is interactive and animated, and will update based on
+            the scroll position.
+          </p>
+          <p>
+            At the end, the user can either confirm or cancel the changes.
           </p>
         </div>
 
         <div>
           <p>Is this a library?</p>
           <p>
-            Not exactly. This is merely a proof of concept, to convey the idea.
-            You can look at the source code however, for inspiration.
+            Not exactly. This is merely a proof of concept, to convey what I had
+            in mind.
+          </p>
+          <p>
+            You can however look at the
+            <a href="https://jgthms.com/picknplace.js/picknplace.js"
+              >source code</a
+            >, for inspiration.
           </p>
         </div>
 
@@ -169,6 +204,10 @@
           <p>Who are you?</p>
           <p>
             I'm <a href="https://jgthms.com/">@jgthms</a>, a frontend designer.
+          </p>
+          <p>
+            Find me on <a href="https://x.com/jgthms">Twitter</a> and
+            <a href="https://github.com/jgthms">Github</a>.
           </p>
         </div>
       </footer>
