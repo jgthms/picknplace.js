@@ -44,15 +44,6 @@ export function createPickPlace(options = {}) {
         };
 
       case "place":
-        return {
-          mode: "idle",
-          $list: null,
-          $item: null,
-          originalTop: 0,
-          positions: [],
-          currentIndex: null,
-        };
-
       case "cancel":
         return {
           mode: "idle",
@@ -143,7 +134,7 @@ export function createPickPlace(options = {}) {
       position: "fixed",
       width: `${rect.width}px`,
       height: `${rect.height}px`,
-      transform: `translate(${rect.left}px, calc(${rect.top}px + var(--offset))`,
+      transform: `translate(${rect.left}px, calc(${rect.top}px + var(--offset)))`,
     });
     ghostTop = rect.top;
 
@@ -254,11 +245,11 @@ export function createPickPlace(options = {}) {
     }
   };
 
-  const swapByIndex = (positions, indexA, indexB) => {
+  const swapByIndex = (positions, indexA, indexB, currentIndexMap) => {
     if (indexA === indexB) return;
 
-    const a = positions.find((p) => p.currentIndex === indexA);
-    const b = positions.find((p) => p.currentIndex === indexB);
+    const a = currentIndexMap.get(indexA);
+    const b = currentIndexMap.get(indexB);
 
     if (!a || !b) return;
 
@@ -340,7 +331,10 @@ export function createPickPlace(options = {}) {
       }
 
       if (newTargetIndex !== targetIndex) {
-        swapByIndex(state.positions, targetIndex, newTargetIndex);
+        const currentIndexMap = new Map(
+          state.positions.map((p) => [p.currentIndex, p])
+        );
+        swapByIndex(state.positions, targetIndex, newTargetIndex, currentIndexMap);
         transformItems();
         targetIndex = newTargetIndex;
       }
@@ -376,14 +370,16 @@ export function createPickPlace(options = {}) {
   const transformItems = () => {
     const listRect = state.$list.getBoundingClientRect();
 
+    const indexMap = new Map(
+      state.positions.map((p) => [p.originalIndex, p])
+    );
+
     for (const position of state.positions) {
       const { clone, currentIndex, rect } = position;
 
       let top = rect.top;
 
-      const found = state.positions.find(
-        (pos) => currentIndex === pos.originalIndex
-      );
+      const found = indexMap.get(currentIndex);
 
       if (found && found.originalTop) {
         top = found.originalTop;
@@ -406,7 +402,7 @@ export function createPickPlace(options = {}) {
     }
   };
 
-  // Lifecyle
+  // Lifecycle
   const init = () => {
     if (initialized) {
       return;
@@ -420,7 +416,32 @@ export function createPickPlace(options = {}) {
     initialized = true;
   };
 
+  const destroy = () => {
+    if (!initialized) {
+      return;
+    }
+
+    if (state.mode === "picking") {
+      dispatch({ type: "cancel" });
+    }
+
+    root.removeEventListener("click", onClick, true);
+    root.removeEventListener("keydown", onKeyDown, true);
+    window.removeEventListener("scroll", onScroll);
+
+    destroyGhost();
+
+    if (scrollRaf) {
+      cancelAnimationFrame(scrollRaf);
+      scrollRaf = null;
+    }
+
+    $controls = null;
+    initialized = false;
+  };
+
   return {
     init,
+    destroy,
   };
 }
