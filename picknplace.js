@@ -245,11 +245,11 @@ export function createPickPlace(options = {}) {
     }
   };
 
-  const swapByIndex = (positions, indexA, indexB) => {
+  const swapByIndex = (positions, indexA, indexB, currentIndexMap) => {
     if (indexA === indexB) return;
 
-    const a = positions.find((p) => p.currentIndex === indexA);
-    const b = positions.find((p) => p.currentIndex === indexB);
+    const a = currentIndexMap.get(indexA);
+    const b = currentIndexMap.get(indexB);
 
     if (!a || !b) return;
 
@@ -331,7 +331,10 @@ export function createPickPlace(options = {}) {
       }
 
       if (newTargetIndex !== targetIndex) {
-        swapByIndex(state.positions, targetIndex, newTargetIndex);
+        const currentIndexMap = new Map(
+          state.positions.map((p) => [p.currentIndex, p])
+        );
+        swapByIndex(state.positions, targetIndex, newTargetIndex, currentIndexMap);
         transformItems();
         targetIndex = newTargetIndex;
       }
