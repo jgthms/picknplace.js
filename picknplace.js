@@ -367,14 +367,16 @@ export function createPickPlace(options = {}) {
   const transformItems = () => {
     const listRect = state.$list.getBoundingClientRect();
 
+    const indexMap = new Map(
+      state.positions.map((p) => [p.originalIndex, p])
+    );
+
     for (const position of state.positions) {
       const { clone, currentIndex, rect } = position;
 
       let top = rect.top;
 
-      const found = state.positions.find(
-        (pos) => currentIndex === pos.originalIndex
-      );
+      const found = indexMap.get(currentIndex);
 
       if (found && found.originalTop) {
         top = found.originalTop;
