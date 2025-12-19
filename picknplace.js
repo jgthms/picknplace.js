@@ -420,7 +420,32 @@ export function createPickPlace(options = {}) {
     initialized = true;
   };
 
+  const destroy = () => {
+    if (!initialized) {
+      return;
+    }
+
+    if (state.mode === "picking") {
+      dispatch({ type: "cancel" });
+    }
+
+    root.removeEventListener("click", onClick, true);
+    root.removeEventListener("keydown", onKeyDown, true);
+    window.removeEventListener("scroll", onScroll);
+
+    destroyGhost();
+
+    if (scrollRaf) {
+      cancelAnimationFrame(scrollRaf);
+      scrollRaf = null;
+    }
+
+    $controls = null;
+    initialized = false;
+  };
+
   return {
     init,
+    destroy,
   };
 }
