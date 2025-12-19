@@ -143,7 +143,7 @@ export function createPickPlace(options = {}) {
       position: "fixed",
       width: `${rect.width}px`,
       height: `${rect.height}px`,
-      transform: `translate(${rect.left}px, calc(${rect.top}px + var(--offset))`,
+      transform: `translate(${rect.left}px, calc(${rect.top}px + var(--offset)))`,
     });
     ghostTop = rect.top;
 
