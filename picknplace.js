@@ -406,7 +406,7 @@ export function createPickPlace(options = {}) {
     }
   };
 
-  // Lifecyle
+  // Lifecycle
   const init = () => {
     if (initialized) {
       return;
