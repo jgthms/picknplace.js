@@ -78,6 +78,7 @@ th {
   --teal: #00c2a8;
   --green: #00d66b;
   --lime: #b3db00;
+  --keyboardfocus-color: #000;
 }
 
 html {
@@ -318,7 +319,10 @@ h1 {
     }
   }
 }
-
+.element:focus-within {
+  outline: 2px solid var(--keyboardfocus-color);
+  outline-offset: 2px;
+}
 .pnp-list {
   &[data-mode="picking"] {
     .pnp-item:not(.pnp-clone) {
