@@ -44,15 +44,6 @@ export function createPickPlace(options = {}) {
         };
 
       case "place":
-        return {
-          mode: "idle",
-          $list: null,
-          $item: null,
-          originalTop: 0,
-          positions: [],
-          currentIndex: null,
-        };
-
       case "cancel":
         return {
           mode: "idle",
