@@ -94,7 +94,8 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  padding: 0 3em;
+  padding-inline: clamp(1.25em, 4vw, 3em);
+  padding-block: 0;
 }
 
 body,
@@ -205,6 +206,7 @@ main {
   max-width: 21em;
   width: 100%;
   gap: 0;
+  margin-inline: auto;
 }
 
 h1 {
@@ -222,6 +224,9 @@ h1 {
   border-radius: 1em;
   list-style: none;
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .element {
@@ -233,6 +238,8 @@ h1 {
   padding: 0.5em 0.75em;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  min-width: 0;
 }
 
 .pnp-list.is-ready {
@@ -261,11 +268,12 @@ h1 {
   right: 0;
   display: flex;
   align-items: center;
-  padding: 2em;
+  padding: clamp(1.25em, 3vw, 2em);
   justify-content: center;
   gap: 1em;
-  top: 100%;
+  bottom: 0;
   opacity: 0;
+  transform: translateY(100%);
   transition-duration: 200ms;
   transition-property: opacity, transform;
   pointer-events: none;
@@ -345,7 +353,7 @@ h1 {
   .pnp-controls {
     &.is-active {
       opacity: 1;
-      transform: translateY(-100%);
+      transform: translateY(0);
       pointer-events: auto;
     }
   }
