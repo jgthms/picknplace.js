@@ -406,6 +406,37 @@ export function createPickPlace(options = {}) {
     }
   };
 
+  const recomputePickingLayout = () => {
+    if (state.mode !== "picking" || !state.$list || !state.$item) {
+      return;
+    }
+
+    setIdleMode(state.$list);
+    destroyGhost();
+
+    const listRect = state.$list.getBoundingClientRect();
+    const $items = Array.from(state.$list.children).filter(
+      (x) => !x.classList.contains(cloneClass)
+    );
+
+    state.positions = $items.map((el, index) => {
+      const rect = el.getBoundingClientRect();
+
+      return {
+        el,
+        clone: null,
+        originalIndex: index,
+        currentIndex: index,
+        originalTop: rect.top,
+        rect,
+      };
+    });
+
+    state.originalTop = listRect.top;
+    setPickingMode();
+    createGhost(state.$item);
+  };
+
   // Lifecyle
   const init = () => {
     if (initialized) {
@@ -416,6 +447,7 @@ export function createPickPlace(options = {}) {
     root.addEventListener("click", onClick, true);
     root.addEventListener("keydown", onKeyDown, true);
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", recomputePickingLayout, { passive: true });
 
     initialized = true;
   };
